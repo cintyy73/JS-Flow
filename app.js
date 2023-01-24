@@ -1,6 +1,11 @@
 const $ = (selector) => document.querySelector(selector);
 const $$ = (selector) => document.querySelectorAll(selector);
 
+const addRemove = (element1, element2) =>{
+    element1.classList.add("is-hidden")
+    element2.classList.remove("is-hidden")
+}
+
 const BASE_URL = "https://63cfafea8a780ae6e67a7e98.mockapi.io/";
 
 //mostrar vista de "empleos"
@@ -70,9 +75,20 @@ const createJobs = async () =>{
     }
 }
 
-
 //Eventos
 $("#form-create-job").addEventListener("submit", (e) => {
     e.preventDefault();
     createJobs()
+    addRemove($("#form-create-job"), $("#cont-cards"))
 })
+
+$("#btn-create-job").addEventListener("click",() =>{
+    console.log("object");
+    addRemove($("#cont-cards"), $("#form-create-job"))
+})
+
+$("#btn-create-cancel").addEventListener("click",() =>{
+    console.log("object");
+    addRemove($("#form-create-job"), $("#cont-cards"))
+})
+
