@@ -230,10 +230,16 @@
                         <p class="has-text-dark is-size-7 has-background-primary p-1 m-1" id="seniority">Junior</p>
                         <p class="has-text-dark is-size-7 has-background-primary p-1 m-1" id="category">Development</p>
                     </div>
-                    <div class="control">
-                        <button id="btn-details" class="button is-small is-link">
-                            See details
-                        </button>
+                    <div class="field is-grouped">
+                        
+                        <div class="control">
+                            <button id="btn-details" class="button is-small is-success">
+                                edit Job
+                            </button>
+                        </div>
+                        <div class="control ">
+                            <button id="btn-delete-job" class="button is-disabled is-small is-danger">Delete Job</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -276,6 +282,19 @@
                     </div>
                 </div>
             </form>
+            <article class="message is-danger">
+                <div class="message-body ">
+                    <div class="field is-grouped ml-2">
+                        <p>Are you sure to delete thhis job?</p>
+                        <div class="control">
+                            <button id="btn-delete-ok" class="button ml-2 is-small is-danger">Delete Job</button>
+                        </div>
+                        <div class="control">
+                            <button id="btn-delete-cancel" class="button is-small is-dark is-light">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            </article>
         </main>
     </section>
     <script src="app.js"></script>
