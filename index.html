@@ -34,7 +34,7 @@
             </nav>
             <!--                -->
         </header>
-        <main>
+        <main class="container">
             <!-- Opciones de filtros -->
             <div class="container">
                 <form id="form-filter" action="submit" class="is-flex m-6 is-justify-content-center">
@@ -69,7 +69,7 @@
                             </button>
                         </p>
                         <p class="control">
-                            <button id="btn-clear" class="button is-light">
+                            <button id="btn-clear" class="button is-link is-light">
                                 Clear
                             </button>
                         </p>
@@ -238,9 +238,44 @@
                 </div>
             </div>
             <!--          -->
-            <div class="modal-create-job">
-                
-            </div>
+            <form id="form-create-job" class="box">
+                <div class="field">
+                    <label class="label">Job Title</label>
+                    <div class="control">
+                        <input id="input-name" class="input" type="text" placeholder="Job Title">
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label">Description</label>
+                    <div class="control">
+                        <textarea id="input-description" class="textarea"></textarea>
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label">Tags</label>
+                    <div class="control">
+                        <input id="input-location" class="input" type="text" placeholder="Location">
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="control">
+                        <input id="input-seniority" class="input" type="text" placeholder="Seniority">
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="control">
+                        <input id="input-category" class="input" type="text" placeholder="Category">
+                    </div>
+                </div>
+                <div class="field is-grouped">
+                    <div class="control">
+                        <button id="btn-create-ok" class="button is-link">Submit</button>
+                    </div>
+                    <div class="control">
+                        <button id="btn-create-cancel" class="button is-link is-light">Cancel</button>
+                    </div>
+                </div>
+            </form>
         </main>
     </section>
     <script src="app.js"></script>
