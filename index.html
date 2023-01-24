@@ -12,7 +12,7 @@
 <body>
     <section>
         <header>
-            <nav class="navbar is-success is-light" role="navigation" aria-label="main navigation">
+            <nav class="navbar is-link is-light" role="navigation" aria-label="main navigation">
                 <div class="navbar-brand">
                     <figure class="navbar-item">
                         <img src="./assets/logo.png">
@@ -26,7 +26,7 @@
                             <button id="btn-home" class="button is-small is-link navbar-item">
                                 Home
                             </button>
-    
+
                             <button id="btn-create-job" class="button is-small is-link navbar-item">
                                 Create Job
                             </button>
@@ -35,6 +35,52 @@
                 </div>
             </nav>
         </header>
+        <main >
+
+            <div class="container">
+                <form id="form-filter" action="submit" class="is-flex m-6 is-justify-content-center">
+                    <div id="filter-location" class="control">
+                        <div class="select mr-4">
+                            <select>
+                                <option>Argentina</option>
+                                <option>Unites States</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div id="filter-seniority" class="control">
+                        <div class="select mr-4">
+                            <select>
+                                <option>Junior</option>
+                                <option>Senior</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="control  mr-4">
+                        <div id="filter-category" class="select">
+                            <select>
+                                <option>Development</option>
+                                <option>Product</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="field is-grouped is-grouped-centered">
+                        <p class="control">
+                          <button id="btn-search" class="button is-link">
+                            Submit
+                          </button>
+                        </p>
+                        <p class="control">
+                          <button id="btn-clear" class="button is-light">
+                            Clear
+                          </button>
+                        </p>
+                    </div>
+                </form>
+            </div>
+        
+
+
+        </main>
     </section>
     <script src="app.js"></script>
 </body>
