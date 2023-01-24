@@ -3,6 +3,7 @@ const $$ = (selector) => document.querySelectorAll(selector);
 
 const BASE_URL = "https://63cfafea8a780ae6e67a7e98.mockapi.io/";
 
+//mostrar vista de "empleos"
 const renderJobs = async () => {
     try {
         const response = await fetch(`${BASE_URL}jobs`);
@@ -41,4 +42,37 @@ const renderJobs = async () => {
         </article>`;
     }
 }
+
 renderJobs()
+
+// Crear nuevo empleo
+const createJobs = async () =>{
+    try {
+        const job = {
+            name: $("#input-name").value,
+            description: $("#input-description").value,
+            location: $("#input-location").value,
+            seniority: $("#input-seniority").value,
+            category: $("#input-category").value,
+        }
+        const response = await fetch(`${BASE_URL}jobs`, {
+            method: "POST",
+            body: JSON.stringify(job),
+            headers: {
+                "Content-Type": "Application/json"
+            }
+        })
+        const jobs = await response.json();
+    } 
+    catch(error){
+        console.log(error)
+        
+    }
+}
+
+
+//Eventos
+$("#form-create-job").addEventListener("submit", (e) => {
+    e.preventDefault();
+    createJobs()
+})
