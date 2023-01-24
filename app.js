@@ -7,6 +7,8 @@ const addRemove = (element1, element2) =>{
 }
 
 const BASE_URL = "https://63cfafea8a780ae6e67a7e98.mockapi.io/";
+let dataId = '';
+let isDetails = false;
 
 //mostrar vista de "empleos"
 const renderJobs = async () => {
@@ -14,9 +16,9 @@ const renderJobs = async () => {
         const response = await fetch(`${BASE_URL}jobs`);
         const jobs = await response.json();
         $("#cont-cards").innerHTML = '';
-        for (const {name, description, location, seniority, category} of jobs) {
+        for (const {name, description, location, seniority, category, id} of jobs) {
             $("#cont-cards").innerHTML += `    
-            <div class="card column is-3 m-2 p-3 ">
+            <div id="cont-card" data-card=${id} class="card column is-3 m-2 p-3 ">
                 <div class="content">
                     <div class="media">
                         <p id="name" class="subtitle is-5">${name}</p>
@@ -30,12 +32,51 @@ const renderJobs = async () => {
                     <p class="has-text-dark is-size-7 has-background-primary p-1 m-1" id="seniority">${seniority}</p>
                     <p class="has-text-dark is-size-7 has-background-primary p-1 m-1" id="category">${category}</p>
                 </div>
-                <div class="control">
-                    <button id="btn-details" class="button is-small is-link">
+                <div id="container-buttons" class="control">
+                    <button data-id="${id}" class="button btn-details is-small is-link">
                         See details
                     </button>
+                    <div class="control is-hidden" data-id="${id}">
+                        <button class="button  btn-msj-delete is-small is-danger">Delete Job</button>
+                    </div>
                 </div>
             </div>`
+            //Doy evento para ver detalles de empleo
+            for (const button of $$(".btn-details")) {
+                button.addEventListener("click", () =>{ 
+                    dataId = button.getAttribute("data-id")
+                    seeDetails($$("#cont-card"))
+                    isDetails = true
+
+                    if(isDetails) {
+                        //$(".btn-msj-delete")
+                       
+                        button.textContent = "Edit Job"
+                        button.classList.remove("is-link")
+                        button.classList.add("is-primary")
+                    }
+                    else{                       
+                        button.textContent = "See Details"
+                        button.classList.remove("is-primary")
+                        button.classList.add("is-link")
+                    }
+                   
+                })
+            }
+
+            // for (const button of $$(".btn-msj-delete")) {
+            //     button.addEventListener("click", () =>{ 
+            //         if(isDetails){
+            //             button.classList.add("is-hidden")
+            //             $("#message").classList.remove("is-hidden")
+            //         }
+            //         else{
+            //             button.classList.remove("is-hidden")
+            //             $("#message").classList.add("is-hidden")
+
+            //         }
+            //     }  )     
+            // }
         }
 
     } catch (error) {
@@ -45,6 +86,9 @@ const renderJobs = async () => {
                 <p>Pagina no disponible, vuelva intentar en unos minutos.</p>
             </div>
         </article>`;
+    }
+    finally{
+        isDetails=false
     }
 }
 
@@ -75,6 +119,16 @@ const createJobs = async () =>{
     }
 }
 
+const seeDetails = (cards) => {
+    for (const card of cards) {
+        card.classList.add("is-hidden")
+        if (card.getAttribute("data-card") === dataId) {
+            card.classList.remove("is-hidden")
+
+        }            
+    }
+}
+
 //Eventos
 $("#form-create-job").addEventListener("submit", (e) => {
     e.preventDefault();
@@ -91,4 +145,5 @@ $("#btn-create-cancel").addEventListener("click",() =>{
     console.log("object");
     addRemove($("#form-create-job"), $("#cont-cards"))
 })
+
 
