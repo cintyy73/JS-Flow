@@ -9,6 +9,7 @@ const addRemove = (element1, element2) =>{
 const BASE_URL = "https://63cfafea8a780ae6e67a7e98.mockapi.io/";
 let dataId = '';
 let isDetails = false;
+let deleteHidden = false
 
 //mostrar vista de "empleos"
 const renderJobs = async () => {
@@ -36,8 +37,8 @@ const renderJobs = async () => {
                     <button data-id="${id}" class="button btn-details is-small is-link">
                         See details
                     </button>
-                    <div class="control is-hidden" data-id="${id}">
-                        <button class="button  btn-msj-delete is-small is-danger">Delete Job</button>
+                    <div class="control " data-id="${id}">
+                        <button class="button  is-hidden btn-msj-delete is-small is-danger">Delete Job</button>
                     </div>
                 </div>
             </div>`
@@ -47,36 +48,36 @@ const renderJobs = async () => {
                     dataId = button.getAttribute("data-id")
                     seeDetails($$("#cont-card"))
                     isDetails = true
-
+                    
                     if(isDetails) {
                         //$(".btn-msj-delete")
-                       
                         button.textContent = "Edit Job"
                         button.classList.remove("is-link")
                         button.classList.add("is-primary")
+
                     }
                     else{                       
                         button.textContent = "See Details"
                         button.classList.remove("is-primary")
                         button.classList.add("is-link")
                     }
-                   
+                    
                 })
             }
 
-            // for (const button of $$(".btn-msj-delete")) {
-            //     button.addEventListener("click", () =>{ 
-            //         if(isDetails){
-            //             button.classList.add("is-hidden")
-            //             $("#message").classList.remove("is-hidden")
-            //         }
-            //         else{
-            //             button.classList.remove("is-hidden")
-            //             $("#message").classList.add("is-hidden")
-
-            //         }
-            //     }  )     
-            // }
+            for (const button of $$(".btn-msj-delete")) {
+                if(isDetails){
+                    
+                    button.classList.remove("is-hidden")
+                }
+                else{                   
+                    button.classList.add("is-hidden")
+                    $("#message").classList.add("is-hidden")
+                }
+                button.addEventListener("click", () =>{ 
+                    $("#message").classList.remove("is-hidden")
+                }  )     
+            }
         }
 
     } catch (error) {
