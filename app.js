@@ -21,8 +21,10 @@ const getJobs = async () => {
         const response = await fetch(`${BASE_URL}jobs`);
         const jobs = await response.json();
         rendersJobs(jobs)
+        optionsFilters(jobs)
     } 
     catch (error) {
+        console.log(error);
         msjError(msj1)
     }
 }
@@ -113,6 +115,23 @@ deleteJob = async (id) => {
         recharge(1)
     }
 }
+
+//llenar select de filtros
+const optionsFilters = (jobs) =>{
+    $("#filter-category").innerHTML = ``
+    $("#filter-seniority").innerHTML = ``
+    $("#filter-location").innerHTML = ``
+    for (const {category, seniority, location} of jobs) {
+        $("#filter-category").innerHTML += `
+            <option>${category}</option>`
+        $("#filter-seniority").innerHTML += `
+            <option>${seniority}</option>`
+        $("#filter-location").innerHTML += `
+            <option>${location}</option>`
+
+    }
+}
+
 
 //ver detalles de empleo
 const seeDetaislJob = ({name, description, location, seniority, category, id}) =>{
