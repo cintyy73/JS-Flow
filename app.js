@@ -8,7 +8,6 @@ const addRemove = (element1, element2) =>{
 
 const BASE_URL = "https://63cfafea8a780ae6e67a7e98.mockapi.io/";
 let dataId = '';
-let isDetails = false;
 
 //obtener todos los empleos
 const getJobs = async () => {
@@ -18,20 +17,21 @@ const getJobs = async () => {
         rendersJobs(jobs)
     } 
     catch (error) {
-        $("#cont-cards").innerHTML = `
-        <article class="message is-danger">
-            <div class="message-body ">
-                <p>Pagina no disponible, vuelva intentar en unos minutos.</p>
-            </div>
-        </article>`;
-    }
-    finally{
-        isDetails=false
+        msjError()
     }
 }
 
 getJobs()
 
+const getJob = async (id) =>{
+    try {
+        const response = await fetch(`${BASE_URL}jobs/${id}`);
+        const job = await response.json();
+        seeDetaislJob(job)
+    } catch (error) {
+        msjError()
+    }
+}
 //mostrar vista de "empleos"
 
 const rendersJobs = (jobs) => {
@@ -65,38 +65,11 @@ const rendersJobs = (jobs) => {
         for (const button of $$(".btn-details")) {
             button.addEventListener("click", () =>{ 
                 dataId = button.getAttribute("data-id")
-                seeDetails($$("#cont-card"))
-                isDetails = true
-                if(isDetails) {
-                    button.textContent = "Edit Job"
-                    button.classList.remove("is-link")
-                    button.classList.add("is-primary")
-                }
-                else{                       
-                    button.textContent = "See Details"
-                    button.classList.remove("is-primary")
-                    button.classList.add("is-link")
-                }
+                getJob(dataId)
             })
         }
     }
 }
-
-        //evento para mostrar mensaje de confirmacion para eliminar empleo
-
-        // for (const button of $$(".btn-msj-delete")) { //no funciona!!!!!!! 
-        //     if(isDetails){
-                
-        //         button.classList.remove("is-hidden")
-        //     }
-        //     else{                   
-        //         button.classList.add("is-hidden")
-        //         $("#message").classList.add("is-hidden")
-        //     }
-        //     button.addEventListener("click", () =>{ 
-        //         $("#message").classList.remove("is-hidden")
-        //     }  )     
-        // }
 
 // Crear nuevo empleo
 const registerJob = async () =>{
@@ -120,15 +93,39 @@ const registerJob = async () =>{
     }
 }
 
-const seeDetails = (cards) => { 
-    // es correcto? o se hace con un nuevo fetch???????
-    for (const card of cards) {
-        card.classList.add("is-hidden")
-        if (card.getAttribute("data-card") === dataId) {
-            card.classList.remove("is-hidden")
-        }            
+const seeDetaislJob = ({name, description, location, seniority, category, id}) =>{
+    $("#cont-cards").innerHTML = `    
+    <div id="cont-card" data-card=${id} class="card column is-3 m-2 p-3 ">
+        <div class="content">
+            <div class="media">
+                <p id="name" class="subtitle is-5">${name}</p>
+            </div>
+        </div>
+        <div class="content">
+            <p id="description" class="is-size-7">${description}</p>
+        </div>
+        <div id="tags" class="media">
+            <p class="has-text-dark is-size-7 has-background-primary p-1 m-1" id="location">${location}</p>
+            <p class="has-text-dark is-size-7 has-background-primary p-1 m-1" id="seniority">${seniority}</p>
+            <p class="has-text-dark is-size-7 has-background-primary p-1 m-1" id="category">${category}</p>
+        </div>
+        <div id="container-buttons" class="buttons control">
+            <button data-id="${id}" class="button btn-edit-job is-small is-primary">
+                Edit Job
+            </button>
+            <div class="control" data-id="${id}">
+                <button class="button btn-msj-delete is-small is-danger">Delete Job</button>
+            </div>
+        </div>
+    </div>`
+    
+    //evento para mostrar mensaje de confirmacion para eliminar empleo
+    $(".btn-msj-delete").addEventListener("click", () =>{ 
+            $("#message").classList.remove("is-hidden")
+        })     
+    //agregar evento al btn edit job    
+        
     }
-}
 
 //empleo base
 const getJobForm = () =>{
@@ -178,4 +175,7 @@ $("#btn-create-cancel").addEventListener("click",() =>{
     addRemove($("#form-create-job"), $("#cont-cards"))
 })
 
-
+$("#btn-delete-cancel").addEventListener("click", () =>{
+    $("#message").classList.add("is-hidden")
+    getJobs()
+})
