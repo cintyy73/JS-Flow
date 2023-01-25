@@ -93,6 +93,17 @@ const registerJob = async () =>{
     }
 }
 
+deleteJob = async (id) => {
+    try {
+        const response = await fetch(`${BASE_URL}jobs/${id}`,{
+            method: "DELETE",
+        });
+    } 
+    finally{
+        getJobs()
+    }
+}
+
 const seeDetaislJob = ({name, description, location, seniority, category, id}) =>{
     $("#cont-cards").innerHTML = `    
     <div id="cont-card" data-card=${id} class="card column is-3 m-2 p-3 ">
@@ -113,18 +124,19 @@ const seeDetaislJob = ({name, description, location, seniority, category, id}) =
             <button data-id="${id}" class="button btn-edit-job is-small is-primary">
                 Edit Job
             </button>
-            <div class="control" data-id="${id}">
-                <button class="button btn-msj-delete is-small is-danger">Delete Job</button>
+            <div class="control" >
+                <button data-id="${id}" class="button btn-msj-delete is-small is-danger">Delete Job</button>
             </div>
         </div>
     </div>`
     
     //evento para mostrar mensaje de confirmacion para eliminar empleo
     $(".btn-msj-delete").addEventListener("click", () =>{ 
+           // $(".btn-msj-delete").setAttribute("data-id", id)
+            $("#btn-delete-ok").setAttribute("data-id", id)
             $("#message").classList.remove("is-hidden")
         })     
-    //agregar evento al btn edit job    
-        
+    //agregar evento al btn edit job            
     }
 
 //empleo base
@@ -178,4 +190,10 @@ $("#btn-create-cancel").addEventListener("click",() =>{
 $("#btn-delete-cancel").addEventListener("click", () =>{
     $("#message").classList.add("is-hidden")
     getJobs()
+})
+
+$("#btn-delete-ok").addEventListener("click", () =>{
+
+    deleteJob($("#btn-delete-ok").getAttribute("data-id"))
+    $("#message").classList.add("is-hidden")
 })
