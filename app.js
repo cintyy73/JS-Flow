@@ -116,6 +116,29 @@ deleteJob = async (id) => {
     }
 }
 
+//filtra empleos segun input
+let list = []
+
+const listFilter = async (filter)  =>{
+    try {
+        const response = await fetch(`${BASE_URL}jobs`);
+        const jobs = await response.json();
+        if(filter===$("#filter-category")){
+        list = jobs.filter((job)=>(filter.value === job.category))
+        }
+        if(filter===$("#filter-seniority")){
+            list = jobs.filter((job)=>(filter.value === job.seniority))
+        }
+        if(filter===$("#filter-location")){
+            list = jobs.filter((job)=>(filter.value === job.location))
+        }
+    } 
+    catch (error) {
+        console.log(error);
+        msjError(msj1)
+    }
+}
+
 //llenar select de filtros
 const optionsFilters = (jobs) =>{
     $("#filter-category").innerHTML = ``
@@ -123,11 +146,11 @@ const optionsFilters = (jobs) =>{
     $("#filter-location").innerHTML = ``
     for (const {category, seniority, location} of jobs) {
         $("#filter-category").innerHTML += `
-            <option>${category}</option>`
+            <option value="${category}">${category}</option>`
         $("#filter-seniority").innerHTML += `
-            <option>${seniority}</option>`
+            <option  value="${seniority}">${seniority}</option>`
         $("#filter-location").innerHTML += `
-            <option>${location}</option>`
+            <option  value="${location}">${location}</option>`
     }
 }
 
@@ -216,10 +239,7 @@ const getJobForm = () =>{
     return job
 }
 
-const jobsFilter = (jobs) =>{
-    //agregar acciones para evento filtrar
-    console.log("search")
-}
+
 //mensaje de error
 const msjError = (msj) =>{
     $("#cont-cards").innerHTML = `
@@ -280,11 +300,28 @@ $("#btn-delete-ok").addEventListener("click", () =>{
     $("#message").classList.add("is-hidden")
 })
 
-//filtros de empleos
+//select category
+$("#filter-category").addEventListener("change", () =>{
+    listFilter($("#filter-category"))    
+})
+
+//select seniority
+$("#filter-seniority").addEventListener("change", () =>{
+    listFilter($("#filter-seniority"), "seniority")
+})
+
+//select location
+$("#filter-location").addEventListener("change", () =>{
+    listFilter($("#filter-location"), "location")
+})
+
+//search filtros
 $("#form-filter").addEventListener("submit", (e) =>{
     e.preventDefault()
-    jobsFilter()
+    rendersJobs(list)
 })
-// $("#filter-category").
-// $("#filter-seniority").
-// $("#filter-location").
+
+//cancelar filtros
+$("#btn-clear").addEventListener("click", () =>{
+    getJobs()
+})
