@@ -7,11 +7,14 @@ const addRemove = (element1, element2) =>{
 }
 
 const BASE_URL = "https://63cfafea8a780ae6e67a7e98.mockapi.io/";
+
 let dataId = '';
 let editing = false;
+
 const msj1 = "Pagina no disponible, vuelva intentar en unos minutos." 
 const msj2 = "Estamos procesando sus datos"
 const msj3 = "Aguarde unos seguncos, mientras eliminamos sus datos"
+
 //obtener todos los empleos
 const getJobs = async () => {
     try {
@@ -26,6 +29,7 @@ const getJobs = async () => {
 
 getJobs()
 
+//obtener un empleo
 const getJob = async (id) =>{
     try {
         const response = await fetch(`${BASE_URL}jobs/${id}`);
@@ -36,8 +40,8 @@ const getJob = async (id) =>{
         msjError(msj2)
     }
 }
-//mostrar vista de "empleos"
 
+//mostrar vista de "empleos"
 const rendersJobs = (jobs) => {
     $("#cont-cards").innerHTML = '';
     for (const {name, description, location, seniority, category, id} of jobs) {
@@ -65,7 +69,8 @@ const rendersJobs = (jobs) => {
                 </div>
             </div>
         </div>`
-        //Doy evento para ver detalles de empleo
+
+        // evento para ver detalles de empleo
         for (const button of $$(".btn-details")) {
             button.addEventListener("click", () =>{ 
                 dataId = button.getAttribute("data-id")
@@ -97,6 +102,7 @@ const registerJob = async () =>{
     }
 }
 
+//Eliminar un empleo
 deleteJob = async (id) => {
     try {
         const response = await fetch(`${BASE_URL}jobs/${id}`,{
@@ -108,6 +114,7 @@ deleteJob = async (id) => {
     }
 }
 
+//ver detalles de empleo
 const seeDetaislJob = ({name, description, location, seniority, category, id}) =>{
     $("#cont-cards").innerHTML = `    
     <div id="cont-card" data-card=${id} class="card column is-3 m-2 p-3 ">
@@ -148,6 +155,7 @@ const seeDetaislJob = ({name, description, location, seniority, category, id}) =
      editing = false       
     }
 
+//guardar datos de empleo editado
 updateJobEdit = async (id) =>{
     try{
         const job = getJobForm()
@@ -200,7 +208,7 @@ const msjError = (msj) =>{
     </article>`;
 }
 
-//Recarga la pagina luego de 3 segundos x si hay error puede mostrar msj
+//Recarga la página luego de determinados segundos (según parámetro) 
 const recharge = (time) =>{
     return new Promise((resolve)=>
     {
@@ -211,6 +219,8 @@ const recharge = (time) =>{
 }
 
 //Eventos
+
+//formulario: editar / crear
 $("#form-create-job").addEventListener("submit", (e) => {
     e.preventDefault();
     if(editing){
@@ -224,21 +234,25 @@ $("#form-create-job").addEventListener("submit", (e) => {
     }
 })
 
+//crear 
 $("#btn-create-job").addEventListener("click",() =>{
     console.log("object");
     addRemove($("#cont-cards"), $("#form-create-job"))
 })
 
+//cancela => crear
 $("#btn-create-cancel").addEventListener("click",() =>{
     console.log("object");
     addRemove($("#form-create-job"), $("#cont-cards"))
 })
 
+//cancela => eliminar
 $("#btn-delete-cancel").addEventListener("click", () =>{
     $("#message").classList.add("is-hidden")
     getJobs()
 })
 
+//muestra msj antes de eliminar 
 $("#btn-delete-ok").addEventListener("click", () =>{
     deleteJob($("#btn-delete-ok").getAttribute("data-id"))
     $("#message").classList.add("is-hidden")
