@@ -100,7 +100,7 @@ const rendersJobs = (jobs) => {
 
 // Crear nuevo empleo
 const registerJob = async () =>{
-    try {
+    try{
         const job = getJobForm()
         const response = await fetch(`${BASE_URL}jobs`, {
             method: "PST",
@@ -120,12 +120,12 @@ const registerJob = async () =>{
     }
 }
 
-const seeDetails = (cards) => {
+const seeDetails = (cards) => { 
+    // es correcto? o se hace con un nuevo fetch???????
     for (const card of cards) {
         card.classList.add("is-hidden")
         if (card.getAttribute("data-card") === dataId) {
             card.classList.remove("is-hidden")
-
         }            
     }
 }
@@ -151,6 +151,7 @@ const msjError = () =>{
     </article>`;
 }
 
+//Recarga la pagina luego de 3 segundos x si hay error puede mostrar msj
 const recharge = () =>{
     return new Promise((resolve)=>
     {
@@ -159,6 +160,7 @@ const recharge = () =>{
         },3000)
     })
 }
+
 //Eventos
 $("#form-create-job").addEventListener("submit", (e) => {
     e.preventDefault();
