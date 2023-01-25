@@ -8,7 +8,10 @@ const addRemove = (element1, element2) =>{
 
 const BASE_URL = "https://63cfafea8a780ae6e67a7e98.mockapi.io/";
 let dataId = '';
-
+let editing = false;
+const msj1 = "Pagina no disponible, vuelva intentar en unos minutos." 
+const msj2 = "Estamos procesando sus datos"
+const msj3 = "Aguarde unos seguncos, mientras eliminamos sus datos"
 //obtener todos los empleos
 const getJobs = async () => {
     try {
@@ -17,7 +20,7 @@ const getJobs = async () => {
         rendersJobs(jobs)
     } 
     catch (error) {
-        msjError()
+        msjError(msj1)
     }
 }
 
@@ -28,8 +31,9 @@ const getJob = async (id) =>{
         const response = await fetch(`${BASE_URL}jobs/${id}`);
         const job = await response.json();
         seeDetaislJob(job)
+        populateForm(job)
     } catch (error) {
-        msjError()
+        msjError(msj2)
     }
 }
 //mostrar vista de "empleos"
@@ -76,7 +80,7 @@ const registerJob = async () =>{
     try{
         const job = getJobForm()
         const response = await fetch(`${BASE_URL}jobs`, {
-            method: "PST",
+            method: "POST",
             body: JSON.stringify(job),
             headers: {
                 "Content-Type": "Application/json"
@@ -86,10 +90,10 @@ const registerJob = async () =>{
     } 
     catch(error){
         console.log(error)  
-        msjError()    
+        msjError(msj2)    
     }
     finally{
-        recharge()
+        recharge(2)
     }
 }
 
@@ -100,7 +104,7 @@ deleteJob = async (id) => {
         });
     } 
     finally{
-        getJobs()
+        recharge(1)
     }
 }
 
@@ -132,12 +136,47 @@ const seeDetaislJob = ({name, description, location, seniority, category, id}) =
     
     //evento para mostrar mensaje de confirmacion para eliminar empleo
     $(".btn-msj-delete").addEventListener("click", () =>{ 
-           // $(".btn-msj-delete").setAttribute("data-id", id)
             $("#btn-delete-ok").setAttribute("data-id", id)
             $("#message").classList.remove("is-hidden")
         })     
-    //agregar evento al btn edit job            
+    //agregar evento al btn edit job  
+    $(".btn-edit-job").addEventListener("click", () =>{ 
+        $("#form-create-job").classList.remove("is-hidden")
+        $("#btn-create-ok").setAttribute("data-id", id)
+        editing = true
+     })     
+     editing = false       
     }
+
+updateJobEdit = async (id) =>{
+    try{
+        const job = getJobForm()
+        const response = await fetch(`${BASE_URL}jobs/${id}`, {
+            method: "PUT",
+            body: JSON.stringify(job),
+            headers: {
+                "Content-Type": "Application/json"
+            },
+        })
+        const jobs = await response.json();
+        } 
+        catch(error){
+            console.log(error)  
+            msjError()    
+        }
+        finally{
+            recharge(1)
+        }
+    }
+
+//da valores a los inputs del empleo a editar
+const populateForm = ({name, description, seniority, category, location}) =>{
+    $("#input-name").value = name
+    $("#input-description").value = description
+    $("#input-location").value = location
+    $("#input-seniority").value =  seniority
+    $("#input-category").value = category
+}
 
 //empleo base
 const getJobForm = () =>{
@@ -151,30 +190,38 @@ const getJobForm = () =>{
     return job
 }
 
-const msjError = () =>{
+//mensaje de error
+const msjError = (msj) =>{
     $("#cont-cards").innerHTML = `
     <article class="message is-danger">
         <div class="message-body ">
-            <p>Pagina no disponible, vuelva intentar en unos minutos.</p>
+            <p>${msj}</p>
         </div>
     </article>`;
 }
 
 //Recarga la pagina luego de 3 segundos x si hay error puede mostrar msj
-const recharge = () =>{
+const recharge = (time) =>{
     return new Promise((resolve)=>
     {
         setTimeout(() => {
             resolve(window.location.href = "index.html")
-        },3000)
+        },time)
     })
 }
 
 //Eventos
 $("#form-create-job").addEventListener("submit", (e) => {
     e.preventDefault();
-    registerJob()
-    addRemove($("#form-create-job"), $("#cont-cards"))
+    if(editing){
+        console.log("editando")
+        getJobForm()
+        updateJobEdit($("#btn-create-ok").getAttribute("data-id"))
+    }
+    else{
+        registerJob()
+        addRemove($("#form-create-job"), $("#cont-cards"))
+    }
 })
 
 $("#btn-create-job").addEventListener("click",() =>{
@@ -193,7 +240,6 @@ $("#btn-delete-cancel").addEventListener("click", () =>{
 })
 
 $("#btn-delete-ok").addEventListener("click", () =>{
-
     deleteJob($("#btn-delete-ok").getAttribute("data-id"))
     $("#message").classList.add("is-hidden")
 })
