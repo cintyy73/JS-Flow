@@ -128,7 +128,6 @@ const optionsFilters = (jobs) =>{
             <option>${seniority}</option>`
         $("#filter-location").innerHTML += `
             <option>${location}</option>`
-
     }
 }
 
@@ -217,6 +216,10 @@ const getJobForm = () =>{
     return job
 }
 
+const jobsFilter = (jobs) =>{
+    //agregar acciones para evento filtrar
+    console.log("search")
+}
 //mensaje de error
 const msjError = (msj) =>{
     $("#cont-cards").innerHTML = `
@@ -276,3 +279,12 @@ $("#btn-delete-ok").addEventListener("click", () =>{
     deleteJob($("#btn-delete-ok").getAttribute("data-id"))
     $("#message").classList.add("is-hidden")
 })
+
+//filtros de empleos
+$("#form-filter").addEventListener("submit", (e) =>{
+    e.preventDefault()
+    jobsFilter()
+})
+// $("#filter-category").
+// $("#filter-seniority").
+// $("#filter-location").
