@@ -11,6 +11,42 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
     <!--           -->
     <title>JS Flow Módulo IV -Asincronismo.</title>
+    <meta name="googlebot" content="index,follow" />
+    <meta name="robots" content="index,follow" />
+    <meta name="googlebot" content="index,follow" />
+    <meta name="google-site-verification" content="fAjkkpSNXl6APJ6nujDAS2MdFzS2Fu7oz68r8j4xIw8" />
+    <meta name="subject" content="Aplicación ofrecer y buscar empleos." />
+    <meta name="referrer" content="no-referrer" />
+
+    <!-- GEO tags -->
+    <meta name="ICBM" content="	34°30′00″S 58°37′00″O" />
+    <meta name="geo.position" content="	34°30′00″S 58°37′00″O" />
+    <meta name="geo.region" content="AR-S" />
+
+    <!-- Author tags -->
+    <link rel="me" href="cintiapaezdm@gmail.com" />
+    <link rel="me" href="sms:+549-01162424120" />
+
+    <!-- Social Tags -->
+    <meta property="og:url" content="cintyy73.github.io/js-flow/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="App de empleos" />
+    <meta property="og:image"
+        content="https://cintyy73.github.io/js-flow/assets/logo.png" />
+    <meta property="og:image" name="twitter:image"
+        content="https://cintyy73.github.io/js-flow/assets/logo.png" />
+    <link rel="apple-touch-icon"
+        href="hhttps://cintyy73.github.io/js-flow/assets/logo.png" />
+    <link rel="apple-touch-icon"
+        href="https://cintyy73.github.io/js-flow/assets/logo.png" />
+    <meta property="og:description" name="twitter:description" content="Buscador de empleos" />
+    <meta name="theme-color" content="#291b96" />
+    <meta name="twitter:card" content="summary" />
+    <meta property="og:image:alt" content="Logo de CAREERS" />
+    <meta property="og:description" content="App para ofrecer y buscar empleos" />
+    <meta property="og:site_name" content="Careers JOB" />
+    <meta property="og:locale" content="AR-S" />
+    <meta property="article:author" content="https://www.facebook.com/cintyy73/" />
 </head>
 
 <body>
@@ -21,7 +57,7 @@
                 <div class="navbar-brand">
                     <figure class="navbar-item">
                         <img src="./assets/logo.png">
-                        <a class="subtitle has-text-white ml-2">Careers</a>
+                        <a class="subtitle has-text-white ml-2">CAREERS</a>
                     </figure>
                     <div class="buttons">
                         <button id="btn-home" class="button is-small is-link navbar-item">
@@ -39,23 +75,23 @@
         <main class="container">
             <!-- Opciones de filtros -->
             <div class="container">
-                <form id="form-filter" action="submit" class="is-flex-tablet m-6 is-justify-content-center container">
-                    <div class="control mb-2">
-                        <div class="select is-link mr-4">
+                <form id="form-filter" action="submit" class="is-flex m-6 is-justify-content-center">
+                    <div class="control">
+                        <div class="select mr-4">
                             <select id="filter-location">
 
                             </select>
                         </div>
                     </div>
-                    <div class="control mb-2">
-                        <div class="select is-link mr-4">
+                    <div class="control">
+                        <div class="select mr-4">
                             <select id="filter-category" >
 
                             </select>
                         </div>
                     </div>
-                    <div class="control mb-2">
-                        <div  class="select  is-link mr-4 ">
+                    <div class="control  mr-4">
+                        <div  class="select">
                             <select id="filter-seniority">
 
                             </select>
@@ -79,10 +115,9 @@
             <!-- Contenedor  de tarjetas -->
             <div id="cont-cards"
                 class="container is-justify-content-center is-align-items-center columns is-flex-wrap-wrap">
-                <!-- <figure class="image is-48x48 container">
-                    <img  src="./assets/logo.png" >
-                </figure> --> 
-                <!-- ver dimensiones -->
+                <figure class="image is-128x128 ">
+                    <img class="is-rounded" src="./assets/logo.png" >
+                </figure> 
             </div>
             <form id="form-create-job" class="box is-hidden">
                 <div class="field">
@@ -140,7 +175,13 @@
             <!--  -->
         </main>
     </section>
-    <script src="app.js"></script>
+
+    <script src="js/app.js"></script>
+    <script src="js/get.js"></script>
+    <script src="js/post.js"></script>
+    <script src="js/put.js"></script>
+    <script src="js/delete.js"></script>
+
 </body>
 
 </html>
