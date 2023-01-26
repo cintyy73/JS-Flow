@@ -218,8 +218,8 @@ updateJobEdit = async (id) =>{
         }
     }
 
-//da valores a los inputs del empleo a editar
-const populateForm = ({name, description, seniority, category, location}) =>{
+//da valores a los inputs del empleo a editar 
+const populateForm = ({name, description, location, seniority, category}) =>{
     $("#input-name").value = name
     $("#input-description").value = description
     $("#input-location").value = location
@@ -324,4 +324,9 @@ $("#form-filter").addEventListener("submit", (e) =>{
 //cancelar filtros
 $("#btn-clear").addEventListener("click", () =>{
     getJobs()
+})
+
+//home
+$("#btn-home").addEventListener("click", () =>{
+    recharge(1)
 })
