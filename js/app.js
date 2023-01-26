@@ -1,6 +1,5 @@
 const $ = (selector) => document.querySelector(selector);
 const $$ = (selector) => document.querySelectorAll(selector);
-
 const addRemove = (element1, element2) =>{
     element1.classList.add("is-hidden")
     element2.classList.remove("is-hidden")
@@ -10,38 +9,11 @@ const BASE_URL = "https://63cfafea8a780ae6e67a7e98.mockapi.io/";
 
 let dataId = '';
 let editing = false;
+let list = []
 
 const msj1 = "Pagina no disponible, vuelva intentar en unos minutos." 
 const msj2 = "Estamos procesando sus datos"
 const msj3 = "Aguarde unos seguncos, mientras eliminamos sus datos"
-
-//obtener todos los empleos
-const getJobs = async () => {
-    try {
-        const response = await fetch(`${BASE_URL}jobs`);
-        const jobs = await response.json();
-        rendersJobs(jobs)
-        optionsFilters(jobs)
-    } 
-    catch (error) {
-        console.log(error);
-        msjError(msj1)
-    }
-}
-
-getJobs()
-
-//obtener un empleo
-const getJob = async (id) =>{
-    try {
-        const response = await fetch(`${BASE_URL}jobs/${id}`);
-        const job = await response.json();
-        seeDetaislJob(job)
-        populateForm(job)
-    } catch (error) {
-        msjError(msj2)
-    }
-}
 
 //mostrar vista de "empleos"
 const rendersJobs = (jobs) => {
@@ -72,7 +44,7 @@ const rendersJobs = (jobs) => {
             </div>
         </div>`
 
-        // evento para ver detalles de empleo
+    // evento para ver detalles de empleo
         for (const button of $$(".btn-details")) {
             button.addEventListener("click", () =>{ 
                 dataId = button.getAttribute("data-id")
@@ -82,42 +54,7 @@ const rendersJobs = (jobs) => {
     }
 }
 
-// Crear nuevo empleo
-const registerJob = async () =>{
-    try{
-        const job = getJobForm()
-        const response = await fetch(`${BASE_URL}jobs`, {
-            method: "POST",
-            body: JSON.stringify(job),
-            headers: {
-                "Content-Type": "Application/json"
-            }
-        })
-        const jobs = await response.json();
-    } 
-    catch(error){
-        console.log(error)  
-        msjError(msj2)    
-    }
-    finally{
-        recharge(2)
-    }
-}
-
-//Eliminar un empleo
-deleteJob = async (id) => {
-    try {
-        const response = await fetch(`${BASE_URL}jobs/${id}`,{
-            method: "DELETE",
-        });
-    } 
-    finally{
-        recharge(1)
-    }
-}
-
 //filtra empleos segun input
-let list = []
 
 const listFilter = async (filter)  =>{
     try {
@@ -146,11 +83,11 @@ const optionsFilters = (jobs) =>{
     $("#filter-location").innerHTML = ``
     for (const {category, seniority, location} of jobs) {
         $("#filter-category").innerHTML += `
-            <option value="${category}">${category}</option>`
+        <option value="${category}">${category}</option>`
         $("#filter-seniority").innerHTML += `
-            <option  value="${seniority}">${seniority}</option>`
+        <option  value="${seniority}">${seniority}</option>`
         $("#filter-location").innerHTML += `
-            <option  value="${location}">${location}</option>`
+        <option  value="${location}">${location}</option>`
     }
 }
 
@@ -164,7 +101,7 @@ const seeDetaislJob = ({name, description, location, seniority, category, id}) =
                 <p id="name" class="subtitle is-5">${name}</p>
             </div>
         </div>
-        <div class="content">
+        <div class="content has-text-centered">
             <p id="description" class="is-size-7">${description}</p>
         </div>
         <div id="tags" class="media">
@@ -184,39 +121,19 @@ const seeDetaislJob = ({name, description, location, seniority, category, id}) =
     
     //evento para mostrar mensaje de confirmacion para eliminar empleo
     $(".btn-msj-delete").addEventListener("click", () =>{ 
-            $("#btn-delete-ok").setAttribute("data-id", id)
-            $("#message").classList.remove("is-hidden")
-        })     
+        $("#btn-delete-ok").setAttribute("data-id", id)
+        $("#message").classList.remove("is-hidden")
+    })     
     //agregar evento al btn edit job  
     $(".btn-edit-job").addEventListener("click", () =>{ 
         $("#form-create-job").classList.remove("is-hidden")
         $("#btn-create-ok").setAttribute("data-id", id)
         editing = true
-     })     
-     editing = false       
-    }
+    })     
+    editing = false       
+}
 
-//guardar datos de empleo editado
-updateJobEdit = async (id) =>{
-    try{
-        const job = getJobForm()
-        const response = await fetch(`${BASE_URL}jobs/${id}`, {
-            method: "PUT",
-            body: JSON.stringify(job),
-            headers: {
-                "Content-Type": "Application/json"
-            },
-        })
-        const jobs = await response.json();
-        } 
-        catch(error){
-            console.log(error)  
-            msjError()    
-        }
-        finally{
-            recharge(1)
-        }
-    }
+
 
 //da valores a los inputs del empleo a editar 
 const populateForm = ({name, description, location, seniority, category}) =>{
@@ -238,7 +155,6 @@ const getJobForm = () =>{
     }
     return job
 }
-
 
 //mensaje de error
 const msjError = (msj) =>{
@@ -266,7 +182,6 @@ const recharge = (time) =>{
 $("#form-create-job").addEventListener("submit", (e) => {
     e.preventDefault();
     if(editing){
-        console.log("editando")
         getJobForm()
         updateJobEdit($("#btn-create-ok").getAttribute("data-id"))
     }
@@ -278,13 +193,11 @@ $("#form-create-job").addEventListener("submit", (e) => {
 
 //crear 
 $("#btn-create-job").addEventListener("click",() =>{
-    console.log("object");
     addRemove($("#cont-cards"), $("#form-create-job"))
 })
 
 //cancela => crear
 $("#btn-create-cancel").addEventListener("click",() =>{
-    console.log("object");
     addRemove($("#form-create-job"), $("#cont-cards"))
 })
 
