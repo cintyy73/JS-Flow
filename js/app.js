@@ -122,7 +122,8 @@ const seeDetaislJob = ({name, description, location, seniority, category, id}) =
     //evento para mostrar mensaje de confirmacion para eliminar empleo
     $(".btn-msj-delete").addEventListener("click", () =>{ 
         $("#btn-delete-ok").setAttribute("data-id", id)
-        $("#message").classList.remove("is-hidden")
+        addRemove($("#cont-cards"), $("#message"))
+        $("#form-create-job").classList.add("is-hidden")
     })     
     //agregar evento al btn edit job  
     $(".btn-edit-job").addEventListener("click", () =>{ 
@@ -203,14 +204,13 @@ $("#btn-create-cancel").addEventListener("click",() =>{
 
 //cancela => eliminar
 $("#btn-delete-cancel").addEventListener("click", () =>{
-    $("#message").classList.add("is-hidden")
+    addRemove($("#message"), $("#cont-cards"))
     getJobs()
 })
 
 //muestra msj antes de eliminar 
 $("#btn-delete-ok").addEventListener("click", () =>{
     deleteJob($("#btn-delete-ok").getAttribute("data-id"))
-    $("#message").classList.add("is-hidden")
 })
 
 //select category

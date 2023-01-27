@@ -76,30 +76,30 @@
             <!-- Opciones de filtros -->
             <div class="container">
                 <form id="form-filter" action="submit" class="m-6 columns">
-                    <div class="colum is-2"></div>
+                    <div class="colum is-2 "></div>
 
-                    <div class="control column is-2">
-                        <div class="select mr-4">
+                    <div class="control column is-3 is-12-mobile">
+                        <div class="select">
                             <select id="filter-location">
 
                             </select>
                         </div>
                     </div>
-                    <div class="control column is-2">
-                        <div class="select mr-4">
+                    <div class="control column is-3 is-12-mobile">
+                        <div class="select">
                             <select id="filter-category" >
 
                             </select>
                         </div>
                     </div>
-                    <div class="control column is-2  mr-4">
-                        <div  class="select">
+                    <div class="control column is-3 is-12-mobile">
+                        <div class="select">
                             <select id="filter-seniority">
 
                             </select>
                         </div>
                     </div>
-                    <div class="field is-grouped  column is-2  is-grouped-centered">
+                    <div class="field is-grouped  column is-2">
                         <p class="control">
                             <button id="btn-search" type="submit" class="button is-link">
                                 Submit
@@ -122,11 +122,12 @@
                     <img class="is-rounded" src="./assets/logo.png" >
                 </figure> 
             </div>
+            <!-- formulario para crear empleo -->
             <form id="form-create-job" class="box is-hidden">
                 <div class="field">
                     <label class="label">Job Title</label>
                     <div class="control">
-                        <input id="input-name" class="input" type="text" placeholder="Job Title">
+                        <input id="input-name" required="required"  class="input" type="text" placeholder="Job Title">
                     </div>
                 </div>
                 <div class="field">
