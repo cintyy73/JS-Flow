@@ -23,10 +23,15 @@
     - `Zona`
 - `Editar` y `Eliminar` los `empleos generados`.
 - Cambiar los `filtros` y renderizar una vista de tus empleos segun `categorías`, `zona` o `puesto`.
+---
 ![Vista del inicio sin empleos](./assets/readme/main-view.jpg).
-![Vista del inicio con empleos](./assets/readme/main-home.jpg).
-![Vista de empleos aplicando filtros](./assets/readme/main-filters.jpg).
+---
+![Vista del inicio con empleos](./assets/readme/home.jpg).
+---
+![Vista de empleos aplicando filtros](./assets/readme/filters.jpg).
+---
 ![Vista de empleo para editar o eliminar](./assets/readme/edit-delete.jpg).
+
 
 
 ### 💪💪Ahora te invito a ofrecer nuevos puestos de trabajo y encontrar los mejores candidatos!!!! 
