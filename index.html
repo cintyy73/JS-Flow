@@ -73,7 +73,9 @@
         <main class="container">
             <!-- Opciones de filtros -->
             <div class="container">
-                <form id="form-filter" action="submit" class="is-flex m-6 is-justify-content-center columns">
+                <form id="form-filter" action="submit" class="m-6 columns">
+                    <div class="colum is-2"></div>
+
                     <div class="control column is-2">
                         <div class="select mr-4">
                             <select id="filter-location">
@@ -107,13 +109,14 @@
                             </button>
                         </p>
                     </div>
+                    <div class="colum is-2"></div>
                 </form>
             </div>
             <!--            -->
             <!-- Contenedor  de tarjetas -->
             <div id="cont-cards"
                 class="container is-justify-content-center is-align-items-center columns is-flex-wrap-wrap">
-                <figure class="image is-128x128 column is-3 ">
+                <figure class="image is-128x128 column is-12-desktop is-12-tablet is-12-mobile">
                     <img class="is-rounded" src="./assets/logo.png" >
                 </figure> 
             </div>
