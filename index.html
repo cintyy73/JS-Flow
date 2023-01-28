@@ -53,7 +53,7 @@
     <section>
         <header>
             <!-- nav  -->
-            <nav class="navbar is-link is-light" role="navigation" aria-label="main navigation">
+            <nav class="navbar is-link is-light mb-2" role="navigation" aria-label="main navigation">
                 <div class="navbar-brand">
                     <figure class="navbar-item">
                         <img src="./assets/logo.png">
@@ -73,25 +73,26 @@
             <!--                -->
         </header>
         <main class="container">
+
             <!-- Opciones de filtros -->
             <div class="container">
                 <form id="form-filter" action="submit" class="p-2 columns is-justify-content-center">
 
-                    <div class="control column is-2 is-12-mobile">
+                    <div class="control has-background-link-light column is-2 is-12-mobile">
                         <div class="select is-fullwidth">
                             <select id="filter-location">
 
                             </select>
                         </div>
                     </div>
-                    <div class="control column is-2 is-12-mobile">
+                    <div class="control column has-background-link-light is-2 is-12-mobile">
                         <div class="select is-fullwidth">
                             <select id="filter-category" >
 
                             </select>
                         </div>
                     </div>
-                    <div class="control column is-2 is-12-mobile">
+                    <div class="control has-background-link-light column is-2 is-12-mobile">
                         <div class="select is-fullwidth">
                             <select id="filter-seniority">
 
@@ -110,13 +111,12 @@
                             </button>
                         </p>
                     </div>
-                    <div class="colum is-2"></div>
                 </form>
             </div>
             <!--            -->
             <!-- Contenedor  de tarjetas -->
             <div id="cont-cards"
-                class="container is-justify-content-center is-align-items-center columns is-flex-wrap-wrap">
+                class="container is-justify-content-center is-align-items-center columns is-flex-wrap-wrap p-2">
                 <figure class="image is-128x128 column is-12-desktop is-12-tablet is-12-mobile">
                     <img class="is-rounded" src="./assets/logo.png" >
                 </figure> 
@@ -177,6 +177,14 @@
             </article>
             <!--  -->
         </main>
+        <footer>
+            <div class="has-background-link has-text-white is-light p-3 is-flex is-justify-content-center is-align-items-center">
+                <figure class="navbar-item is-hidden-mobile">
+                    <img src="./assets/logo.png">
+                </figure>
+                <p class="subtitle has-text-white ml-2">Made by Cintia Páez 👌 for ADA ITW 🚀</p>
+            </div>
+        </footer>
     </section>
 
     <script src="js/app.js"></script>
