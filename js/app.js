@@ -1,19 +1,27 @@
 const $ = (selector) => document.querySelector(selector);
 const $$ = (selector) => document.querySelectorAll(selector);
+
+//mostrar ocultar elemento
 const addRemove = (element1, element2) =>{
     element1.classList.add("is-hidden")
     element2.classList.remove("is-hidden")
 }
 
+
+//mensajes error
+const msj1 = "Pagina no disponible, vuelva intentar en unos minutos." ;
+const msj2 = "Estamos procesando sus datos";
+const msj3 = "Eliminando....";
+
+//variables
 const BASE_URL = "https://63cfafea8a780ae6e67a7e98.mockapi.io/";
 
 let dataId = '';
 let editing = false;
-let list = []
-
-const msj1 = "Pagina no disponible, vuelva intentar en unos minutos." 
-const msj2 = "Estamos procesando sus datos"
-const msj3 = "Aguarde unos seguncos, mientras eliminamos sus datos"
+let list = [];
+let list_category = [];
+let list_location = [];
+let list_seniority = [];
 
 //mostrar vista de "empleos"
 const rendersJobs = (jobs) => {
@@ -48,6 +56,7 @@ const rendersJobs = (jobs) => {
         for (const button of $$(".btn-details")) {
             button.addEventListener("click", () =>{ 
                 dataId = button.getAttribute("data-id")
+                $("#form-filter").classList.add("is-hidden")
                 getJob(dataId)
             })
         }
@@ -76,21 +85,45 @@ const listFilter = async (filter)  =>{
     }
 }
 
-//llenar select de filtros
-const optionsFilters = (jobs) =>{
-    $("#filter-category").innerHTML = ``
-    $("#filter-seniority").innerHTML = ``
-    $("#filter-location").innerHTML = ``
-    for (const {category, seniority, location} of jobs) {
-        $("#filter-category").innerHTML += `
-        <option value="${category}">${category}</option>`
-        $("#filter-seniority").innerHTML += `
-        <option  value="${seniority}">${seniority}</option>`
-        $("#filter-location").innerHTML += `
-        <option  value="${location}">${location}</option>`
+//filtra opciones de select para no repetirlas
+const listFilters = (jobs, filter) =>{
+    return jobs.reduce((acc, currentValue) => {
+        const existe = acc.some((item) => item[filter] === currentValue[filter])
+    
+    if(!existe) {
+        return [...acc, currentValue]
     }
+    return acc
+}, [])
 }
 
+//llenar select de filtros
+const optionsFilters = () =>{
+    $("#filter-category").innerHTML = `
+        <option>Seleccionar</option>
+    `
+    $("#filter-seniority").innerHTML = `
+        <option>Seleccionar</option>
+    `
+    $("#filter-location").innerHTML = `
+        <option>Seleccionar</option>
+    `
+    for (const {category} of list_category) {
+        $("#filter-category").innerHTML += `
+            <option value="${category}">${category}</option>
+        `
+    }
+    for (const {seniority} of list_seniority) {
+        $("#filter-seniority").innerHTML += `
+            <option value="${seniority}">${seniority}</option>
+        `
+    }
+    for (const {location} of list_location) {
+        $("#filter-location").innerHTML += `
+            <option value="${location}">${location}</option>
+        `
+    }
+}
 
 //ver detalles de empleo
 const seeDetaislJob = ({name, description, location, seniority, category, id}) =>{
@@ -211,6 +244,7 @@ $("#btn-delete-cancel").addEventListener("click", () =>{
 //muestra msj antes de eliminar 
 $("#btn-delete-ok").addEventListener("click", () =>{
     deleteJob($("#btn-delete-ok").getAttribute("data-id"))
+    
 })
 
 //select category
@@ -243,3 +277,5 @@ $("#btn-clear").addEventListener("click", () =>{
 $("#btn-home").addEventListener("click", () =>{
     recharge(1)
 })
+
+//agregar validacion de formulario clase 27/01
