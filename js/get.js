@@ -4,7 +4,10 @@ const getJobs = async () => {
         const response = await fetch(`${BASE_URL}jobs`);
         const jobs = await response.json();
         rendersJobs(jobs)
-        optionsFilters(jobs)
+        list_category = listFilters(jobs, "category")
+        list_location = listFilters(jobs, "location")
+        list_seniority = listFilters(jobs,"seniority")
+        optionsFilters()
     } 
     catch (error) {
         console.log(error);
