@@ -9,11 +9,14 @@ const BASE_URL = "https://63cfafea8a780ae6e67a7e98.mockapi.io/";
 
 let dataId = '';
 let editing = false;
-let list = []
+let list = [];
+list_category = [];
+list_location = [];
+list_seniority = [];
 
-const msj1 = "Pagina no disponible, vuelva intentar en unos minutos." 
-const msj2 = "Estamos procesando sus datos"
-const msj3 = "Aguarde unos seguncos, mientras eliminamos sus datos"
+const msj1 = "Pagina no disponible, vuelva intentar en unos minutos." ;
+const msj2 = "Estamos procesando sus datos";
+const msj3 = "Eliminando....";
 
 //mostrar vista de "empleos"
 const rendersJobs = (jobs) => {
@@ -76,18 +79,43 @@ const listFilter = async (filter)  =>{
     }
 }
 
+const listFilters = (jobs, filter) =>{
+    return jobs.reduce((acc, currentValue) => {
+        const existe = acc.some((item) => item[filter] === currentValue[filter])
+    
+    if(!existe) {
+        return [...acc, currentValue]
+    }
+    return acc
+}, [])
+}
+
 //llenar select de filtros
-const optionsFilters = (jobs) =>{
-    $("#filter-category").innerHTML = ``
-    $("#filter-seniority").innerHTML = ``
-    $("#filter-location").innerHTML = ``
-    for (const {category, seniority, location} of jobs) {
+const optionsFilters = () =>{
+    $("#filter-category").innerHTML = `
+        <option>Seleccionar</option>
+    `
+    $("#filter-seniority").innerHTML = `
+        <option>Seleccionar</option>
+    `
+    $("#filter-location").innerHTML = `
+        <option>Seleccionar</option>
+    `
+
+    for (const {category} of list_category) {
         $("#filter-category").innerHTML += `
-        <option value="${category}">${category}</option>`
+            <option value="${category}">${category}</option>
+        `
+    }
+    for (const {seniority} of list_seniority) {
         $("#filter-seniority").innerHTML += `
-        <option  value="${seniority}">${seniority}</option>`
+            <option  value="${seniority}">${seniority}</option>
+        `
+    }
+    for (const {location} of list_location) {
         $("#filter-location").innerHTML += `
-        <option  value="${location}">${location}</option>`
+            <option  value="${location}">${location}</option>
+        `
     }
 }
 
