@@ -24,12 +24,16 @@
 - `Editar` y `Eliminar` los `empleos generados`.
 - Cambiar los `filtros` y renderizar una vista de tus empleos segun `categorías`, `zona` o `puesto`.
 ---
+##### Vista del inicio sin empleos.
 ![Vista del inicio sin empleos](./assets/readme/main-view.jpg).
 ---
-![Vista del inicio con empleos](./assets/readme/home.jpg).
+##### Vista de empleos generados.
+![Vista de empleos](./assets/readme/home.jpg).
 ---
+##### Vista de empleos generados aplicando filtros.
 ![Vista de empleos aplicando filtros](./assets/readme/filters.jpg).
 ---
+##### Vista de empleos seleccionado con opciones de editar y eliminar.
 ![Vista de empleo para editar o eliminar](./assets/readme/edit-delete.jpg).
 
 
