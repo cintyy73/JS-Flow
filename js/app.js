@@ -128,7 +128,7 @@ const optionsFilters = () =>{
 //ver detalles de empleo
 const seeDetaislJob = ({name, description, location, seniority, category, id}) =>{
     $("#cont-cards").innerHTML = `    
-    <div id="cont-card" data-card=${id} class="card column is-3 m-2 p-3 ">
+    <div id="cont-card" data-card=${id} class="card column is-3-desktop is-3-widescreen is-2-fullhd m-2 p-3 ">
         <div class="content">
             <div class="media">
                 <p id="name" class="subtitle is-5">${name}</p>
