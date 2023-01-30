@@ -100,13 +100,13 @@ const listFilters = (jobs, filter) =>{
 //llenar select de filtros
 const optionsFilters = () =>{
     $("#filter-category").innerHTML = `
-        <option class="is-size-7">Seleccionar...</option>
+        <option class="is-size-7">...</option>
     `
     $("#filter-seniority").innerHTML = `
-        <option class="is-size-7">Seleccionar...</option>
+        <option class="is-size-7">...</option>
     `
     $("#filter-location").innerHTML = `
-        <option class="is-size-7">Seleccionar...</option>
+        <option class="is-size-7">...</option>
     `
     for (const {category} of list_category) {
         $("#filter-category").innerHTML += `
