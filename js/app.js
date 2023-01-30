@@ -100,27 +100,27 @@ const listFilters = (jobs, filter) =>{
 //llenar select de filtros
 const optionsFilters = () =>{
     $("#filter-category").innerHTML = `
-        <option>Seleccionar</option>
+        <option class="is-size-7">...</option>
     `
     $("#filter-seniority").innerHTML = `
-        <option>Seleccionar</option>
+        <option class="is-size-7">...</option>
     `
     $("#filter-location").innerHTML = `
-        <option>Seleccionar</option>
+        <option class="is-size-7">...</option>
     `
     for (const {category} of list_category) {
         $("#filter-category").innerHTML += `
-            <option value="${category}">${category}</option>
+            <option value="${category}" class="is-size-7">${category}</option>
         `
     }
     for (const {seniority} of list_seniority) {
         $("#filter-seniority").innerHTML += `
-            <option value="${seniority}">${seniority}</option>
+            <option value="${seniority}" class="is-size-7">${seniority}</option>
         `
     }
     for (const {location} of list_location) {
         $("#filter-location").innerHTML += `
-            <option value="${location}">${location}</option>
+            <option value="${location}" class="is-size-7">${location}</option>
         `
     }
 }
