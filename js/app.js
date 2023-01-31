@@ -100,13 +100,13 @@ const listFilters = (jobs, filter) =>{
 //llenar select de filtros
 const optionsFilters = () =>{
     $("#filter-category").innerHTML = `
-        <option class="is-size-7">Seleccionar...</option>
+        <option class="is-size-7">...</option>
     `
     $("#filter-seniority").innerHTML = `
-        <option class="is-size-7">Seleccionar...</option>
+        <option class="is-size-7">...</option>
     `
     $("#filter-location").innerHTML = `
-        <option class="is-size-7">Seleccionar...</option>
+        <option class="is-size-7">...</option>
     `
     for (const {category} of list_category) {
         $("#filter-category").innerHTML += `
@@ -128,7 +128,7 @@ const optionsFilters = () =>{
 //ver detalles de empleo
 const seeDetaislJob = ({name, description, location, seniority, category, id}) =>{
     $("#cont-cards").innerHTML = `    
-    <div id="cont-card" data-card=${id} class="card column is-3 m-2 p-3 ">
+    <div id="cont-card" data-card=${id} class="card column is-3-desktop is-3-widescreen is-2-fullhd m-2 p-3 ">
         <div class="content">
             <div class="media">
                 <p id="name" class="subtitle is-5">${name}</p>
@@ -215,14 +215,17 @@ const recharge = (time) =>{
 //formulario: editar / crear
 $("#form-create-job").addEventListener("submit", (e) => {
     e.preventDefault();
-    if(editing){
-        getJobForm()
-        updateJobEdit($("#btn-create-ok").getAttribute("data-id"))
-    }
-    else{
-        registerJob()
-        addRemove($("#form-create-job"), $("#cont-cards"))
-    }
+    
+  //  if(validate_form()){
+        if(editing){
+            getJobForm()
+            updateJobEdit($("#btn-create-ok").getAttribute("data-id"))
+        }
+        else{
+            registerJob()
+            addRemove($("#form-create-job"), $("#cont-cards"))
+        }
+    //}
 })
 
 //crear 
@@ -279,3 +282,14 @@ $("#btn-home").addEventListener("click", () =>{
 })
 
 //agregar validacion de formulario clase 27/01
+// const validate_form = () => {
+//     let is_valid = false;
+//     console.log("ejetc");
+//     if($("#input-name").textContent >= 3) {
+//         is_valid = true
+//     }
+//     else{
+//         console.log("else");
+//     }
+//     return is_valid
+// }

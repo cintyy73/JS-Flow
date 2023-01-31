@@ -50,7 +50,7 @@
 </head>
 
 <body>
-    <section class="is-family-primary" style="min-height: 100vh;">
+    <section class="is-family-primary">
         <header>
             <!-- nav  -->
             <nav class="navbar is-link is-light mb-2" role="navigation" aria-label="main navigation">
@@ -72,13 +72,14 @@
             </nav>
             <!--                -->
         </header>
-        <main class="container">
+        <main class="container"  style="min-height: 100vh;">
 
             <!-- Opciones de filtros -->
             <div class="container">
                 <form id="form-filter" action="submit" class="p-2 columns is-justify-content-center">
 
                     <div class="control has-background-link-light column is-2 is-12-mobile">
+                        <label for="filter-location">Location</label>
                         <div class="select is-fullwidth">
                             <select id="filter-location">
 
@@ -86,6 +87,7 @@
                         </div>
                     </div>
                     <div class="control column has-background-link-light is-2 is-12-mobile">
+                        <label for="filter-category">Category</label>
                         <div class="select is-fullwidth">
                             <select id="filter-category">
 
@@ -93,6 +95,7 @@
                         </div>
                     </div>
                     <div class="control has-background-link-light column is-2 is-12-mobile">
+                        <label for="filter-seniority">Seniority</label>
                         <div class="select is-fullwidth">
                             <select id="filter-seniority">
 
@@ -182,7 +185,7 @@
                 <figure class="navbar-item is-hidden-mobile">
                     <img src="./assets/logo.png">
                 </figure>
-                <p class="subtitle has-text-white ml-2">Made by Cintia Páez 👌 for ADA ITW 🚀</p>
+                <p class="subtitle has-text-white ml-2">Made by Cintia Páez 👌 ADA ITW 🚀</p>
             </div>
         </footer>
     </section>
