@@ -215,14 +215,17 @@ const recharge = (time) =>{
 //formulario: editar / crear
 $("#form-create-job").addEventListener("submit", (e) => {
     e.preventDefault();
-    if(editing){
-        getJobForm()
-        updateJobEdit($("#btn-create-ok").getAttribute("data-id"))
-    }
-    else{
-        registerJob()
-        addRemove($("#form-create-job"), $("#cont-cards"))
-    }
+    
+  //  if(validate_form()){
+        if(editing){
+            getJobForm()
+            updateJobEdit($("#btn-create-ok").getAttribute("data-id"))
+        }
+        else{
+            registerJob()
+            addRemove($("#form-create-job"), $("#cont-cards"))
+        }
+    //}
 })
 
 //crear 
@@ -279,3 +282,14 @@ $("#btn-home").addEventListener("click", () =>{
 })
 
 //agregar validacion de formulario clase 27/01
+// const validate_form = () => {
+//     let is_valid = false;
+//     console.log("ejetc");
+//     if($("#input-name").textContent >= 3) {
+//         is_valid = true
+//     }
+//     else{
+//         console.log("else");
+//     }
+//     return is_valid
+// }
