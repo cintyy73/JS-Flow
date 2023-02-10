@@ -2,14 +2,13 @@ const $ = (selector) => document.querySelector(selector);
 const $$ = (selector) => document.querySelectorAll(selector);
 
 //mostrar ocultar elemento
-const addRemove = (element1, element2) =>{
+const addRemove = (element1, element2) => {
     element1.classList.add("is-hidden")
     element2.classList.remove("is-hidden")
 }
 
-
 //mensajes error
-const msj1 = "Pagina no disponible, vuelva intentar en unos minutos." ;
+const msj1 = "Pagina no disponible, vuelva intentar en unos minutos.";
 const msj2 = "Estamos procesando sus datos";
 const msj3 = "Eliminando....";
 
@@ -26,7 +25,7 @@ let list_seniority = [];
 //mostrar vista de "empleos"
 const rendersJobs = (jobs) => {
     $("#cont-cards").innerHTML = '';
-    for (const {name, description, location, seniority, category, id} of jobs) {
+    for (const { name, description, location, seniority, category, id } of jobs) {
         $("#cont-cards").innerHTML += `    
         <div id="cont-card" data-card=${id} class="card column is-3 m-2 p-3 ">
             <div class="content">
@@ -52,9 +51,9 @@ const rendersJobs = (jobs) => {
             </div>
         </div>`
 
-    // evento para ver detalles de empleo
+        // evento para ver detalles de empleo
         for (const button of $$(".btn-details")) {
-            button.addEventListener("click", () =>{ 
+            button.addEventListener("click", () => {
                 dataId = button.getAttribute("data-id")
                 $("#form-filter").classList.add("is-hidden")
                 getJob(dataId)
@@ -65,20 +64,20 @@ const rendersJobs = (jobs) => {
 
 //filtra empleos segun input
 
-const listFilter = async (filter)  =>{
+const listFilter = async (filter) => {
     try {
         const response = await fetch(`${BASE_URL}jobs`);
         const jobs = await response.json();
-        if(filter===$("#filter-category")){
-        list = jobs.filter((job)=>(filter.value === job.category))
+        if (filter === $("#filter-category")) {
+            list = jobs.filter((job) => (filter.value === job.category))
         }
-        if(filter===$("#filter-seniority")){
-            list = jobs.filter((job)=>(filter.value === job.seniority))
+        if (filter === $("#filter-seniority")) {
+            list = jobs.filter((job) => (filter.value === job.seniority))
         }
-        if(filter===$("#filter-location")){
-            list = jobs.filter((job)=>(filter.value === job.location))
+        if (filter === $("#filter-location")) {
+            list = jobs.filter((job) => (filter.value === job.location))
         }
-    } 
+    }
     catch (error) {
         console.log(error);
         msjError(msj1)
@@ -86,19 +85,18 @@ const listFilter = async (filter)  =>{
 }
 
 //filtra opciones de select para no repetirlas
-const listFilters = (jobs, filter) =>{
+const listFilters = (jobs, filter) => {
     return jobs.reduce((acc, currentValue) => {
         const existe = acc.some((item) => item[filter] === currentValue[filter])
-    
-    if(!existe) {
-        return [...acc, currentValue]
-    }
-    return acc
-}, [])
+        if (!existe) {
+            return [...acc, currentValue]
+        }
+        return acc
+    }, [])
 }
 
 //llenar select de filtros
-const optionsFilters = () =>{
+const optionsFilters = () => {
     $("#filter-category").innerHTML = `
         <option class="is-size-7">...</option>
     `
@@ -108,17 +106,17 @@ const optionsFilters = () =>{
     $("#filter-location").innerHTML = `
         <option class="is-size-7">...</option>
     `
-    for (const {category} of list_category) {
+    for (const { category } of list_category) {
         $("#filter-category").innerHTML += `
             <option value="${category}" class="is-size-7">${category}</option>
         `
     }
-    for (const {seniority} of list_seniority) {
+    for (const { seniority } of list_seniority) {
         $("#filter-seniority").innerHTML += `
             <option value="${seniority}" class="is-size-7">${seniority}</option>
         `
     }
-    for (const {location} of list_location) {
+    for (const { location } of list_location) {
         $("#filter-location").innerHTML += `
             <option value="${location}" class="is-size-7">${location}</option>
         `
@@ -126,7 +124,7 @@ const optionsFilters = () =>{
 }
 
 //ver detalles de empleo
-const seeDetaislJob = ({name, description, location, seniority, category, id}) =>{
+const seeDetaislJob = ({ name, description, location, seniority, category, id }) => {
     $("#cont-cards").innerHTML = `    
     <div id="cont-card" data-card=${id} class="card column is-3-desktop is-3-widescreen is-2-fullhd m-2 p-3 ">
         <div class="content">
@@ -151,35 +149,33 @@ const seeDetaislJob = ({name, description, location, seniority, category, id}) =
             </div>
         </div>
     </div>`
-    
+
     //evento para mostrar mensaje de confirmacion para eliminar empleo
-    $(".btn-msj-delete").addEventListener("click", () =>{ 
+    $(".btn-msj-delete").addEventListener("click", () => {
         $("#btn-delete-ok").setAttribute("data-id", id)
         addRemove($("#cont-cards"), $("#message"))
         $("#form-create-job").classList.add("is-hidden")
-    })     
+    })
     //agregar evento al btn edit job  
-    $(".btn-edit-job").addEventListener("click", () =>{ 
+    $(".btn-edit-job").addEventListener("click", () => {
         $("#form-create-job").classList.remove("is-hidden")
         $("#btn-create-ok").setAttribute("data-id", id)
         editing = true
-    })     
-    editing = false       
+    })
+    editing = false
 }
 
-
-
 //da valores a los inputs del empleo a editar 
-const populateForm = ({name, description, location, seniority, category}) =>{
+const populateForm = ({ name, description, location, seniority, category }) => {
     $("#input-name").value = name
     $("#input-description").value = description
     $("#input-location").value = location
-    $("#input-seniority").value =  seniority
+    $("#input-seniority").value = seniority
     $("#input-category").value = category
 }
 
 //empleo base
-const getJobForm = () =>{
+const getJobForm = () => {
     const job = {
         name: $("#input-name").value,
         description: $("#input-description").value,
@@ -191,7 +187,7 @@ const getJobForm = () =>{
 }
 
 //mensaje de error
-const msjError = (msj) =>{
+const msjError = (msj) => {
     $("#cont-cards").innerHTML = `
     <article class="message is-danger">
         <div class="message-body ">
@@ -201,13 +197,31 @@ const msjError = (msj) =>{
 }
 
 //Recarga la página luego de determinados segundos (según parámetro) 
-const recharge = (time) =>{
-    return new Promise((resolve)=>
-    {
+const recharge = (time) => {
+    return new Promise((resolve) => {
         setTimeout(() => {
             resolve(window.location.href = "index.html")
-        },time)
+        }, time)
     })
+}
+
+//validacion de formulario 
+const validate_form = (input) => {
+    let is_valid = false;
+    if (input.value.length >= 3) {
+        $("#message-form").classList.add("is-hidden");
+        is_valid = true
+        input.classList.remove("is-warning");
+        input.classList.remove("is-danger");
+        input.classList.add("is-success");
+    }
+    else {
+        input.classList.remove("is-success");
+        input.classList.remove("is-warning");
+        input.classList.add("is-danger");
+    }
+
+    return is_valid
 }
 
 //Eventos
@@ -215,81 +229,72 @@ const recharge = (time) =>{
 //formulario: editar / crear
 $("#form-create-job").addEventListener("submit", (e) => {
     e.preventDefault();
-    
-    if(validate_form()){
-        if(editing){
+
+    if (validate_form($("#input-name")) && validate_form($("#input-seniority")) && validate_form($("#input-location")) && validate_form($("#input-category"))) {
+        if (editing) {
             getJobForm()
             updateJobEdit($("#btn-create-ok").getAttribute("data-id"))
         }
-        else{
+        else {
             registerJob()
             addRemove($("#form-create-job"), $("#cont-cards"))
         }
     }
-    else{
-        alert("jhgi")
+    else {
+        $("#message-form").classList.remove("is-hidden");
     }
 })
 
 //crear 
-$("#btn-create-job").addEventListener("click",() =>{
+$("#btn-create-job").addEventListener("click", () => {
     addRemove($("#cont-cards"), $("#form-create-job"))
 })
 
 //cancela => crear
-$("#btn-create-cancel").addEventListener("click",() =>{
+$("#btn-create-cancel").addEventListener("click", () => {
     addRemove($("#form-create-job"), $("#cont-cards"))
 })
 
 //cancela => eliminar
-$("#btn-delete-cancel").addEventListener("click", () =>{
+$("#btn-delete-cancel").addEventListener("click", () => {
     addRemove($("#message"), $("#cont-cards"))
     getJobs()
 })
 
 //muestra msj antes de eliminar 
-$("#btn-delete-ok").addEventListener("click", () =>{
+$("#btn-delete-ok").addEventListener("click", () => {
     deleteJob($("#btn-delete-ok").getAttribute("data-id"))
-    
 })
 
 //select category
-$("#filter-category").addEventListener("change", () =>{
-    listFilter($("#filter-category"))    
+$("#filter-category").addEventListener("change", () => {
+    listFilter($("#filter-category"))
 })
 
 //select seniority
-$("#filter-seniority").addEventListener("change", () =>{
+$("#filter-seniority").addEventListener("change", () => {
     listFilter($("#filter-seniority"), "seniority")
 })
 
 //select location
-$("#filter-location").addEventListener("change", () =>{
+$("#filter-location").addEventListener("change", () => {
     listFilter($("#filter-location"), "location")
 })
 
 //search filtros
-$("#form-filter").addEventListener("submit", (e) =>{
+$("#form-filter").addEventListener("submit", (e) => {
     e.preventDefault()
     rendersJobs(list)
 })
 
 //cancelar filtros
-$("#btn-clear").addEventListener("click", () =>{
+$("#btn-clear").addEventListener("click", () => {
     getJobs()
 })
 
 //home
-$("#btn-home").addEventListener("click", () =>{
+$("#btn-home").addEventListener("click", () => {
     recharge(1)
 })
 
-//agregar validacion de formulario clase 27/01
-const validate_form = () => {
-    let is_valid = false;
-    console.log("ejetc");
-    if($("#input-name").value.length >= 3) {
-        is_valid = true
-    }
-    return is_valid
-}
+
