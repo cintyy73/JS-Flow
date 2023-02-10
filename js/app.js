@@ -216,7 +216,7 @@ const recharge = (time) =>{
 $("#form-create-job").addEventListener("submit", (e) => {
     e.preventDefault();
     
-  //  if(validate_form()){
+    if(validate_form()){
         if(editing){
             getJobForm()
             updateJobEdit($("#btn-create-ok").getAttribute("data-id"))
@@ -225,7 +225,10 @@ $("#form-create-job").addEventListener("submit", (e) => {
             registerJob()
             addRemove($("#form-create-job"), $("#cont-cards"))
         }
-    //}
+    }
+    else{
+        alert("jhgi")
+    }
 })
 
 //crear 
@@ -282,14 +285,11 @@ $("#btn-home").addEventListener("click", () =>{
 })
 
 //agregar validacion de formulario clase 27/01
-// const validate_form = () => {
-//     let is_valid = false;
-//     console.log("ejetc");
-//     if($("#input-name").textContent >= 3) {
-//         is_valid = true
-//     }
-//     else{
-//         console.log("else");
-//     }
-//     return is_valid
-// }
+const validate_form = () => {
+    let is_valid = false;
+    console.log("ejetc");
+    if($("#input-name").value.length >= 3) {
+        is_valid = true
+    }
+    return is_valid
+}
